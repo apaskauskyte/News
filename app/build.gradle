@@ -46,7 +46,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
-    def fragmentVersion = "ktx:1.5.7"
-    implementation "androidx.fragment:fragment-$fragmentVersion"
-    debugImplementation "androidx.fragment:fragment-testing:$fragmentVersion"
+    def fragment_version = "1.6.0"
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
+    debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
 }
