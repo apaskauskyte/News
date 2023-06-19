@@ -6,17 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.news.R
+import com.example.news.databinding.FragmentNewsDetailsBinding
 
 class NewsDetailsFragment : Fragment() {
 
     private val viewModel: NewsDetailsFragmentViewModel by viewModels()
 
+    private var _binding: FragmentNewsDetailsBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_news_details, container, false)
+        _binding = FragmentNewsDetailsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     companion object {
