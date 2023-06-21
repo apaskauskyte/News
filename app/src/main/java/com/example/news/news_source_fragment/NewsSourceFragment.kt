@@ -9,13 +9,17 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.news.databinding.FragmentNewsSourceBinding
-import com.example.news.repository.reqres.Source
+import com.example.news.news_source_fragment.recyclerview.CustomAdapter
+import com.example.news.repository.news_api.Source
 import kotlinx.coroutines.launch
 
 class NewsSourceFragment : Fragment() {
 
     private val viewModel: NewsSourceFragmentViewModel by viewModels()
+    private var recyclerAdapter: CustomAdapter? = null
 
     private var _binding: FragmentNewsSourceBinding? = null
     private val binding get() = _binding!!
@@ -33,20 +37,17 @@ class NewsSourceFragment : Fragment() {
 
         viewModel.fetchNewsSources()
 
+        setUpRecyclerView()
+
         observeNewsSourcesStateFlow()
     }
 
-    private fun bindNewsSources(source: Source) {
-        binding.apply {
-            nameTextView.text = source.name
-            categoryTextView.text = source.category
-            descriptionTextView.text = source.description
-        }
-    }
-
-    private fun submitNewsSources(sources: MutableList<Source>) {
-        for (i in 0 until sources.size) {
-            bindNewsSources(sources[i])
+    private fun setUpRecyclerView() {
+        binding.sourceRecyclerView.apply {
+            recyclerAdapter = CustomAdapter { source -> }
+            adapter = recyclerAdapter
+            layoutManager = LinearLayoutManager(activity)
+            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         }
     }
 
@@ -63,6 +64,11 @@ class NewsSourceFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun submitNewsSources(list: List<Source>) {
+        recyclerAdapter?.submitList(list)
+        binding.sourceRecyclerView.adapter = recyclerAdapter
     }
 
     override fun onDestroy() {

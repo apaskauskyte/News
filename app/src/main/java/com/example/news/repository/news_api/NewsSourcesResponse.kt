@@ -1,4 +1,4 @@
-package com.example.news.repository.reqres
+package com.example.news.repository.news_api
 
 data class NewsSourcesResponse(
     val status: String = "",

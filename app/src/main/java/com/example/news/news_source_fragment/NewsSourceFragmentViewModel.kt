@@ -2,9 +2,8 @@ package com.example.news.news_source_fragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.news.repository.reqres.NewsSourcesResponse
-import com.example.news.repository.reqres.NewsApiServiceClient
-import kotlinx.coroutines.CoroutineExceptionHandler
+import com.example.news.repository.news_api.NewsSourcesResponse
+import com.example.news.repository.news_api.NewsApiServiceClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
