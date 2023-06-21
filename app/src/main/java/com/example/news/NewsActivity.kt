@@ -2,7 +2,10 @@ package com.example.news
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import com.example.news.databinding.ActivityNewsBinding
+import com.example.news.news_source_fragment.NewsSourceFragment
 
 class NewsActivity : AppCompatActivity() {
 
@@ -13,5 +16,29 @@ class NewsActivity : AppCompatActivity() {
 
         binding = ActivityNewsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (savedInstanceState == null) {
+            openNewsSourcesFragment()
+        }
+    }
+
+    private fun openNewsSourcesFragment() {
+        setCurrentFragment(NewsSourceFragment.newInstance(), NewsSourceFragment.TAG)
+    }
+
+    private fun setCurrentFragment(fragment: Fragment, tag: String, addBackStack: Boolean = false) {
+        supportFragmentManager.commit {
+            replace(
+                R.id.fragment_container_view,
+                fragment,
+                tag
+            )
+
+            setReorderingAllowed(true)
+
+            if (addBackStack){
+                addToBackStack(tag)
+            }
+        }
     }
 }
