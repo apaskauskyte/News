@@ -11,15 +11,16 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.news.NewsActivity
 import com.example.news.databinding.FragmentNewsSourceBinding
-import com.example.news.news_source_fragment.recyclerview.CustomAdapter
+import com.example.news.news_source_fragment.recyclerview.SourceAdapter
 import com.example.news.repository.news_api.Source
 import kotlinx.coroutines.launch
 
 class NewsSourceFragment : Fragment() {
 
     private val viewModel: NewsSourceFragmentViewModel by viewModels()
-    private var recyclerAdapter: CustomAdapter? = null
+    private var recyclerAdapter: SourceAdapter? = null
 
     private var _binding: FragmentNewsSourceBinding? = null
     private val binding get() = _binding!!
@@ -44,7 +45,7 @@ class NewsSourceFragment : Fragment() {
 
     private fun setUpRecyclerView() {
         binding.sourceRecyclerView.apply {
-            recyclerAdapter = CustomAdapter { source -> }
+            recyclerAdapter = SourceAdapter { source -> }
             adapter = recyclerAdapter
             layoutManager = LinearLayoutManager(activity)
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))

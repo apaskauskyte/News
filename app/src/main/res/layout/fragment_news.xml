@@ -3,15 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".news_source_fragment.NewsSourceFragment">
+    tools:context=".news_list_fragment.NewsListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/sourceRecyclerView"
+        android:id="@+id/articleRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:scrollbars="vertical"
         android:visibility="visible"
-        tools:listitem="@layout/fragment_news_source_list" />
+        tools:listitem="@layout/fragment_news_list" />
 
 </FrameLayout>

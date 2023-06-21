@@ -7,18 +7,18 @@ import androidx.recyclerview.widget.ListAdapter
 import com.example.news.databinding.FragmentNewsSourceListBinding
 import com.example.news.repository.news_api.Source
 
-class CustomAdapter(
+class SourceAdapter(
     private val onClick: (Source) -> Unit
-) : ListAdapter<Source, CustomViewHolder>(
+) : ListAdapter<Source, SourceViewHolder>(
     Comparator()
 ) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CustomViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = SourceViewHolder(
         FragmentNewsSourceListBinding
             .inflate(LayoutInflater.from(parent.context), parent, false),
         onClick
     )
 
-    override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SourceViewHolder, position: Int) {
         getItem(position)?.let { holder.bind(it) }
     }
 
