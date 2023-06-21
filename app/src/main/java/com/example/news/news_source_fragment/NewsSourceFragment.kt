@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -45,11 +47,16 @@ class NewsSourceFragment : Fragment() {
 
     private fun setUpRecyclerView() {
         binding.sourceRecyclerView.apply {
-            recyclerAdapter = SourceAdapter { source -> }
+            recyclerAdapter = SourceAdapter { source -> onSourceCLick(source) }
             adapter = recyclerAdapter
             layoutManager = LinearLayoutManager(activity)
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         }
+    }
+
+    private fun onSourceCLick(source: Source) {
+        (activity as NewsActivity).openNewsListFragment()
+        transferDataToNewsListFragment(source)
     }
 
     private fun observeNewsSourcesStateFlow() {
@@ -77,8 +84,15 @@ class NewsSourceFragment : Fragment() {
         _binding = null
     }
 
+    private fun transferDataToNewsListFragment(source: Source) {
+        val bundle = bundleOf(KEY_SOURCE_ID to source.id)
+        setFragmentResult(REQUEST_KEY_SOURCE, bundle)
+    }
+
     companion object {
         const val TAG = "news_sources_fragment"
+        const val REQUEST_KEY_SOURCE = "news_source_fragment_result_key"
+        const val KEY_SOURCE_ID = "key_source_id"
         fun newInstance() = NewsSourceFragment()
     }
 }

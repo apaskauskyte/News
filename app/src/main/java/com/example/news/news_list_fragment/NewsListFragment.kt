@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.news.databinding.FragmentNewsBinding
 import com.example.news.news_list_fragment.recycleview.ArticleAdapter
+import com.example.news.news_source_fragment.NewsSourceFragment
 import kotlinx.coroutines.launch
 import lt.vcs.demoapp.repository.newsapi.Article
 
@@ -36,11 +38,11 @@ class NewsListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.fetchTopNews()
-
         setUpRecyclerView()
 
         observeArticleStateFlow()
+
+        receiveDataFromNewsSourceFragment()
     }
 
     private fun setUpRecyclerView() {
@@ -59,8 +61,6 @@ class NewsListFragment : Fragment() {
                 viewModel.topNewsStateFlow.collect { response ->
                     val list = response?.articles
 
-                    Log.i(TAG, "onViewCreated: $list")
-
                     if (list != null) {
                         submitArticleList(list)
                     }
@@ -72,6 +72,13 @@ class NewsListFragment : Fragment() {
     private fun submitArticleList(list: List<Article>) {
         recyclerAdapter?.submitList(list)
         binding.articleRecyclerView.adapter = recyclerAdapter
+    }
+
+    private fun receiveDataFromNewsSourceFragment() {
+        setFragmentResultListener(NewsSourceFragment.REQUEST_KEY_SOURCE) { requestKey, bundle ->
+            val sourceId = bundle.getString(NewsSourceFragment.KEY_SOURCE_ID, "")
+            viewModel.fetchTopNews(sourceId)
+        }
     }
 
     companion object {

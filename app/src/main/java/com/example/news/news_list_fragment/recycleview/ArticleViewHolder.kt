@@ -20,7 +20,8 @@ class ArticleViewHolder(
         currentArticle = article
         binding.apply {
             titleTextView.text = article.title
-            dateTextView.text = article.publishedAt
+            dateTextView.text = article.publishedAt.substring(0, 10)
+            sourceTextView.text = article.source.name
             descriptionTextView.text = article.description
             val photoPath = article.urlToImage
             articleIImageView.load(photoPath) {

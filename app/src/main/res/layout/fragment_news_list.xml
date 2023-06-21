@@ -4,24 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
 
     android:layout_width="match_parent"
-    android:layout_height="250dp"
+    android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true">
 
     <TextView
-        android:id="@+id/dateTextView"
-        android:layout_width="199dp"
+        android:id="@+id/sourceTextView"
+        android:layout_width="150dp"
         android:layout_height="24dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:gravity="center"
+        android:gravity="start"
         android:lineSpacingExtra="10sp"
+        android:textStyle="italic"
         android:translationY="-4.97sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Author and date" />
+        tools:text="Source" />
+
+    <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="150dp"
+        android:layout_height="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:gravity="start"
+        android:lineSpacingExtra="10sp"
+        android:translationY="-4.97sp"
+        app:layout_constraintStart_toEndOf="@+id/sourceTextView"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Date" />
 
     <TextView
         android:id="@+id/titleTextView"
@@ -33,6 +49,7 @@
         android:layout_marginEnd="16dp"
         android:gravity="top"
         android:lineSpacingExtra="8sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         android:translationY="-3.8sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,13 +72,14 @@
     <TextView
         android:id="@+id/descriptionTextView"
         android:layout_width="0dp"
-        android:layout_height="84dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:gravity="top"
         android:lineSpacingExtra="5sp"
+        android:textSize="14sp"
         android:translationY="-2.3sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
