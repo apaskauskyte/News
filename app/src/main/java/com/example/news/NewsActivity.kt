@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.example.news.databinding.ActivityNewsBinding
+import com.example.news.news_details_fragment.NewsDetailsFragment
 import com.example.news.news_list_fragment.NewsListFragment
 import com.example.news.news_source_fragment.NewsSourceFragment
 
@@ -29,6 +30,10 @@ class NewsActivity : AppCompatActivity() {
 
     fun openNewsListFragment() {
         setCurrentFragment(NewsListFragment.newInstance(), NewsListFragment.TAG, true)
+    }
+
+    fun openNewsDetailsFragment() {
+        setCurrentFragment(NewsDetailsFragment.newInstance(), NewsDetailsFragment.TAG, true)
     }
 
     private fun setCurrentFragment(fragment: Fragment, tag: String, addBackStack: Boolean = false) {

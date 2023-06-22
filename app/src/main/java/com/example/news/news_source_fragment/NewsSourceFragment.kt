@@ -23,7 +23,6 @@ class NewsSourceFragment : Fragment() {
 
     private val viewModel: NewsSourceFragmentViewModel by viewModels()
     private var recyclerAdapter: SourceAdapter? = null
-
     private var _binding: FragmentNewsSourceBinding? = null
     private val binding get() = _binding!!
 
@@ -39,9 +38,7 @@ class NewsSourceFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.fetchNewsSources()
-
         setUpRecyclerView()
-
         observeNewsSourcesStateFlow()
     }
 

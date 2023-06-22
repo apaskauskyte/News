@@ -13,7 +13,7 @@ class ArticleViewHolder(
     private var currentArticle: Article? = null
 
     init {
-        binding.root.setOnClickListener { currentArticle?.let { result -> onClick(result) } }
+        binding.root.setOnClickListener { currentArticle?.let { article -> onClick(article) } }
     }
 
     fun bind(article: Article) {
