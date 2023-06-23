@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
+import androidx.fragment.app.viewModels
 import coil.load
 import coil.size.ViewSizeResolver
 import com.example.news.databinding.FragmentNewsDetailsBinding
@@ -14,6 +15,7 @@ import lt.vcs.demoapp.repository.newsapi.Article
 
 class NewsDetailsFragment : Fragment() {
 
+    private val viewModel: NewsDetailsViewModel by viewModels()
     private var _binding: FragmentNewsDetailsBinding? = null
     private val binding get() = _binding!!
 
@@ -29,6 +31,7 @@ class NewsDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         receiveDataFromNewsListFragment()
+        observeArticleDetails()
     }
 
     override fun onDestroy() {
@@ -39,14 +42,23 @@ class NewsDetailsFragment : Fragment() {
     private fun receiveDataFromNewsListFragment() {
         setFragmentResultListener(NewsListFragment.REQUEST_KEY_ARTICLE) { requestKey, bundle ->
             val article = bundle.getParcelable<Article>(NewsListFragment.KEY_SOURCE_ARTICLE)
+                ?: return@setFragmentResultListener
+            viewModel.saveArticleState(article)
+        }
+    }
+
+    private fun observeArticleDetails() {
+        viewModel.articleLiveData.observe(
+            viewLifecycleOwner
+        ) { article ->
             binding.apply {
-                authorTextView.text = article?.author
-                dateTextView.text = article?.publishedAt?.substring(0, 10)
-                titleTextView.text = article?.title
-                descriptionTextView.text = article?.description
-                contentTextView.text = article?.content
-                urlTextView.text = article?.url
-                val photoPath = article?.urlToImage
+                authorTextView.text = article.author
+                dateTextView.text = article.publishedAt?.substring(0, 10)
+                titleTextView.text = article.title
+                descriptionTextView.text = article.description
+                contentTextView.text = article.content
+                urlTextView.text = article.url
+                val photoPath = article.urlToImage
                 articleIImageView.load(photoPath) {
                     crossfade(enable = true)
                     crossfade(durationMillis = 500)
